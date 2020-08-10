@@ -23,6 +23,14 @@ const useInput = (initialValue, validator) => {
   return { value, onChange };
 };
 
+const useTabs = (initalTabs, allTabs) => {
+  const [currentIndex, setCurrentIndex] = useState(initalTabs);
+  if (!allTabs || !Array.isArray(allTabs)) {
+    return;
+  }
+  return { currentItem: allTabs[currentIndex], changeItem: setCurrentIndex };
+};
+
 const App = () => {
   const [item, setItem] = useState(0);
   const incrementItem = () => setItem(item + 1);
@@ -30,6 +38,8 @@ const App = () => {
 
   const maxLen = (tomato) => tomato.length <= 10; // 검증할 함수
   const name = useInput("Mr.", maxLen);
+
+  const { currentItem, changeItem } = useTabs(0, tabs);
 
   return (
     <div className="App">
@@ -44,8 +54,25 @@ const App = () => {
         // onChange={name.onChange}
         {...name}
       />
+
+      <h1>useTab ?</h1>
+      {tabs.map((section, index) => (
+        <button onClick={() => changeItem(index)}>{section.title}</button>
+      ))}
+      <div>{currentItem.content}</div>
     </div>
   );
 };
 
 export default App;
+
+const tabs = [
+  {
+    title: "section 1",
+    content: "this is section 1 content",
+  },
+  {
+    title: "section 2",
+    content: "this is section 2 content",
+  },
+];
