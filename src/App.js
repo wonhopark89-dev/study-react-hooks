@@ -40,8 +40,9 @@ const App = () => {
       <h1>useInput ?</h1>
       <input
         placeholder="Name..."
-        value={name.value}
-        onChange={name.onChange}
+        // value={name.value}
+        // onChange={name.onChange}
+        {...name}
       />
     </div>
   );
